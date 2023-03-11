@@ -2,8 +2,8 @@
 Описание моделей данных (DTO).
 """
 
+from datetime import datetime
 from pydantic import Field, BaseModel
-
 
 class HashableBaseModel(BaseModel):
     """
@@ -93,6 +93,9 @@ class CountryDTO(BaseModel):
             timezones=[
                 "UTC+02:00",
             ],
+            area=1580.0,
+            latitude="60.116667°",
+            longitude="19.9°"
         )
     """
 
@@ -106,7 +109,9 @@ class CountryDTO(BaseModel):
     population: int
     subregion: str
     timezones: list[str]
-
+    area: float | None
+    latitude: float | None
+    longitude: float | None
 
 class CurrencyRatesDTO(BaseModel):
     """
@@ -127,6 +132,37 @@ class CurrencyRatesDTO(BaseModel):
     date: str
     rates: dict[str, float]
 
+class NewsAllArticlesDTO(HashableBaseModel):
+    """
+    Модель данных о статье
+    .. code-block::
+        NewsArticlesDTO(
+        )
+    """
+
+    id: str | None
+    name: str | None
+    author: str | None
+    title: str | None
+    description: str | None
+    url: str | None
+    publishedAt: str | None
+    content: str | None
+
+class NewsInfoDTO(BaseModel):
+    """
+    Модель данных о новостях
+
+    .. code-block::
+
+        NewsInfoDTO(
+        
+        )
+    """
+
+    status: str
+    totalResults: int
+    articles: set[NewsAllArticlesDTO]
 
 class WeatherInfoDTO(BaseModel):
     """
@@ -148,7 +184,10 @@ class WeatherInfoDTO(BaseModel):
     humidity: int
     wind_speed: float
     description: str
-
+    visibility: float
+    clouds: float
+    dt: datetime
+    timezone: int
 
 class LocationInfoDTO(BaseModel):
     """
@@ -201,3 +240,4 @@ class LocationInfoDTO(BaseModel):
     location: CountryDTO
     weather: WeatherInfoDTO
     currency_rates: dict[str, float]
+    news: NewsInfoDTO | None

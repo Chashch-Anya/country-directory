@@ -1,16 +1,16 @@
 """
-Тестирование функций сбора информации о погоде.
+Тестирование клиента для получения информации о новостях
 """
 
 import pytest
 
-from collectors.collector import WeatherCollector
+from collectors.collector import NewsCollector
 from collectors.models import LocationDTO
 
 @pytest.mark.asyncio
-class TestWeatherCollector:
+class TestClientNews:
     """
-    Тестирование функций сбора информации о погоде.
+    Тестирование клиента для получения информации о новостях.
     """
 
     location = LocationDTO(
@@ -20,18 +20,17 @@ class TestWeatherCollector:
 
     @pytest.fixture(autouse=True)
     def setup(self):
-        self.collector = WeatherCollector()
+        self.collector = NewsCollector()
 
-    async def test_collect_weather_success(self):
+    async def test_collect_news_success(self):
         """
         Тестирование получения информации о погоде.
         """
         await self.collector.collect(frozenset([self.location]))
 
-    async def test_read_weather_success(self):
+    async def test_read_news_success(self):
         """
         Тестирование чтения информации о погоде.
         """
-        weather = await self.collector.read(self.location)
-        assert weather is not None
-        assert weather.timezone == 0
+        news = await self.collector.read(self.location)
+        assert news

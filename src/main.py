@@ -29,7 +29,9 @@ async def process_input(location: str) -> None:
         lines = await Renderer(location_info).render()
 
         for line in lines:
-            click.secho(line, fg="green")
+            click.secho("| {:34} | {:80} ".format(*line), fg="green")
+            # click.secho(line, fg="green")
+
     else:
         click.secho("Информация отсутствует.", fg="yellow")
 
