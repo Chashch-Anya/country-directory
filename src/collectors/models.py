@@ -137,6 +137,14 @@ class NewsAllArticlesDTO(HashableBaseModel):
     Модель данных о статье
     .. code-block::
         NewsArticlesDTO(
+         id="google-news",
+            name="Google News,
+            author="The Guardian",
+            title="UK economy rebounds with 0.3% growth in January; bank shares tumble in market turmoil \u2013 business live - The Guardian"",
+            description=null,
+            url="link",
+            publishedAt="2023-03-10T10:44:52Z",
+            content="content"
         )
     """
 
@@ -156,11 +164,22 @@ class NewsInfoDTO(BaseModel):
     .. code-block::
 
         NewsInfoDTO(
-        
+            totalResults:38,
+            articles[
+                NewsSourceInfoDTO(
+                    id="google-news",
+                    name="Google News,
+                    author="The Guardian",
+                    title="UK economy rebounds with 0.3% growth in January; bank shares tumble in market turmoil \u2013 business live - The Guardian"",
+                    description=null,
+                    url="link",
+                    publishedAt="2023-03-10T10:44:52Z",
+                    content="content"
+                )
+            ]
         )
     """
 
-    status: str
     totalResults: int
     articles: set[NewsAllArticlesDTO]
 
